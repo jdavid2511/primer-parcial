@@ -6,10 +6,7 @@ import com.primerparcial.primer.parcial.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,10 @@ public class RestCarController {
     @GetMapping(value = "/all")
     public ResponseEntity<List<CarDTO>> getAllCars() throws JsonProcessingException {
         return new ResponseEntity(restCarService.getAllCars(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{id}")
+    public ResponseEntity saveCar(@PathVariable Long id) throws JsonProcessingException {
+        return new ResponseEntity(restCarService.saveCar(id), HttpStatus.ACCEPTED);
     }
 }
