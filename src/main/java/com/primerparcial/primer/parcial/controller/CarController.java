@@ -78,4 +78,26 @@ public class CarController {
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping(value = "car/{id}")
+    public ResponseEntity deleteVehiculo(@PathVariable Long id, Car car){
+        Map response = new HashMap();
+        Boolean carDB = carServiceImp.deleteCar(id, car);
+        try{
+            if (carDB == null){
+                response.put("status", "400");
+                response.put("massage", "No encontro vehiculo");
+                return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            }else {
+                response.put("status", "201");
+                response.put("massage", "se elimino el vehiculo");
+                return new ResponseEntity(response, HttpStatus.ACCEPTED);
+            }
+        } catch (Exception e) {
+            response.put("status", "404");
+            response.put("massage", "Error con la eliminacion");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

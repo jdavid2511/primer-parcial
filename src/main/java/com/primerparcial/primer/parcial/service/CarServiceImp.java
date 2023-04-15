@@ -55,4 +55,17 @@ public class CarServiceImp implements CarService{
         }
     }
 
+    public Boolean deleteCar(Long id, Car car) {
+        try {
+            Car carDB = carRepository.findById(id).get();
+            if (carDB == null){
+                return false;
+            }
+            carRepository.delete(carDB);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 }
