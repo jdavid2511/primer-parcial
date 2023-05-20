@@ -1,7 +1,9 @@
 package com.primerparcial.primer.parcial.controller;
 
 import com.primerparcial.primer.parcial.model.Car;
+
 import com.primerparcial.primer.parcial.service.CarService;
+
 import com.primerparcial.primer.parcial.service.CarServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +53,16 @@ public class CarController {
     public ResponseEntity<List> getAllCars(){
         Map response = new HashMap();
         try{
+
             return new ResponseEntity(carServiceImp.getAllCars(), HttpStatus.OK);
+
+            return new ResponseEntity (carServiceImp.getAllCars(), HttpStatus.OK);
+
         }catch (Exception e){
             response.put("status","404");
             response.put("message","nese encontro el vehiculo");
             return new ResponseEntity(response, HttpStatus.MULTI_STATUS);
+
         }
     }
 
@@ -99,5 +106,8 @@ public class CarController {
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }
+
+     }
+   }
 
 }

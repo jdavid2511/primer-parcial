@@ -4,7 +4,9 @@ import com.primerparcial.primer.parcial.model.Car;
 import com.primerparcial.primer.parcial.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import org.springframework.web.bind.annotation.GetMapping;
+
 
 import java.util.List;
 
@@ -24,7 +26,9 @@ public class CarServiceImp implements CarService{
         }
     }
 
+
     @Override
+
     public Car getCar(Long id){
         return carRepository.findById(id).get();
     }
@@ -33,6 +37,7 @@ public class CarServiceImp implements CarService{
     public List<Car> getAllCars(){
         return carRepository.findAll();
     }
+
 
     @Override
     public Boolean updateCar(Car car, Long id){
@@ -67,5 +72,6 @@ public class CarServiceImp implements CarService{
             return false;
         }
     }
+
 
 }
