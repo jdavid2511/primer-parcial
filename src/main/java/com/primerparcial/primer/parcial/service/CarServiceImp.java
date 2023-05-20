@@ -38,18 +38,28 @@ public class CarServiceImp implements CarService{
     public Boolean updateCar(Car car, Long id){
         try {
             Car carBD = carRepository.findById(id).get();
-            if(carBD == null){
+            List<Car> carro =carRepository.findAll();
+            boolean p=true;
+            if(carBD == null) {
                 return false;
             }
-            carBD.setCar(car.getCar());
-            carBD.setCar_model(car.getCar_model());
-            carBD.setCar_color(car.getCar_color());
-            carBD.setCar_model_year(car.getCar_model_year());
-            carBD.setCar_vin(car.getCar_vin());
-            carBD.setPrice(car.getPrice());
-            carBD.setAvailability(car.getAvailability());
-            Car carUp = carRepository.save(carBD);
-            return true;
+            for (Car car1:carro) {
+                if(car1.getCar_vin().equals(carBD.getCar_vin())){
+                    p=false;
+                }
+            }
+            if(p==true) {
+                    carBD.setCar(car.getCar());
+                    carBD.setCar_model(car.getCar_model());
+                    carBD.setCar_color(car.getCar_color());
+                    carBD.setCar_model_year(car.getCar_model_year());
+                    carBD.setCar_vin(car.getCar_vin());
+                    carBD.setPrice(car.getPrice());
+                    carBD.setAvailability(car.getAvailability());
+                    Car carUp = carRepository.save(carBD);
+                    return true;
+            }
+            return false;
         }catch (Exception e){
             return false;
         }

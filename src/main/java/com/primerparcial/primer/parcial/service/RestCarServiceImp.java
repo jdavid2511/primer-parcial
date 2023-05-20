@@ -1,28 +1,25 @@
-package com.primerparcial.primer.parcial.RestTemplate;
+package com.primerparcial.primer.parcial.service;
+
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.primerparcial.primer.parcial.dto.CarDTO;
 import com.primerparcial.primer.parcial.model.Car;
 import com.primerparcial.primer.parcial.repository.CarRepository;
-import com.primerparcial.primer.parcial.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class RestCarService {
-
+public class RestCarServiceImp {
     private final RestTemplate restTemplate;
     private final CarRepository carRepository;
 
@@ -56,12 +53,21 @@ public class RestCarService {
         ObjectMapper objectMapper = new ObjectMapper();
         Car carDTO = objectMapper.readValue(response.substring(7), Car.class);
 
-        try {
-            Car carSave = carRepository.save(carDTO);
-            return carDTO;
-        }catch (Exception e){
-            return false;
+        List<Car> carro = carRepository.findAll();
+        boolean p=true;
+        for (Car car:carro) {
+            if(car.getCar_vin().equals(carDTO.getCar_vin())){
+                p=false;
+            }
         }
-
+        if(p==true) {
+            try {
+                Car carSave = carRepository.save(carDTO);
+                return carDTO;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
     }
 }
